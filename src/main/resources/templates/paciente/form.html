@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Paciente</title>
+</head>
+<body>
+<h3>Página FORM de Paciente!</h3>
+<form th:action="${paciente.id != null} ? @{/paciente/update} : @{/paciente/save}"
+      method="post">
+  <!-- sem o id, o JPA não sabe qual linha atualizar -->
+  <input type="hidden" name="id" th:value="${paciente?.id}"/>
+
+  <label>Nome</label>
+  <input type="text" name="nome" th:value="${paciente?.nome}"/><br/>
+
+  <label>Telefone</label>
+  <input type="text" name="telefone" th:value="${paciente?.telefone}"/><br/>
+
+  <button type="submit">Salvar</button>
+</form>
+<a th:href="@{/paciente/list}">Voltar para a lista</a>
+</body>
+</html>

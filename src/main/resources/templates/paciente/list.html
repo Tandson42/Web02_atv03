@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pacientes</title>
+</head>
+<body>
+<!-- Link para abrir o formulário de cadastro de um novo paciente -->
+<a th:href="@{/paciente/form}">Novo Paciente</a>
+
+<table class="table" border="1">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Nome</th>
+    <th>Telefone</th>
+    <th colspan="3">Ações</th>
+  </tr>
+  </thead>
+  <tr th:each="p : ${pacientes}">
+    <td th:text="${p.id}"></td>
+    <td th:text="${p.nome}"></td>
+    <td th:text="${p.telefone}"></td>
+
+    <td> <a th:href="|/paciente/edit/${p.id}|">Editar</a> </td>
+    <td> <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"
+           th:href="@{/paciente/remove/{id}(id=${p.id})}">Excluir</a> </td>
+    <!-- Visualizar todas as consultas de um paciente -->
+    <td> <a th:href="|/paciente/consultas/${p.id}|">Consultas</a> </td>
+  </tr>
+</table>
+</body>
+</html>

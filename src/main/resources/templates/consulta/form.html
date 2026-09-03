@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Consulta</title>
+</head>
+<body>
+<h3>Página FORM de Consulta!</h3>
+<form th:action="${consulta.id != null} ? @{/consulta/update} : @{/consulta/save}"
+      method="post">
+  <!-- sem o id, o JPA não sabe qual linha atualizar -->
+  <input type="hidden" name="id" th:value="${consulta?.id}"/>
+
+  <label>Data e Hora</label>
+  <input type="datetime-local" name="data" th:value="${consulta?.data != null ? #temporals.format(consulta.data, 'yyyy-MM-dd''T''HH:mm') : ''}"/><br/>
+
+  <label>Valor</label>
+  <input type="number" name="valor" step="0.01" th:value="${consulta?.valor}"/><br/>
+
+  <label>Observação</label>
+  <input type="text" name="observacao" th:value="${consulta?.observacao}"/><br/>
+
+  <!-- Envia paciente.id: o Spring monta um Paciente só com o id,
+       e o JPA grava a referência (FK) na tabela tb_consulta.
+       Ao editar, o paciente atual vem pré-selecionado. -->
+  <label>Paciente</label>
+  <select name="paciente.id">
+    <option th:each="p : ${pacientes}"
+            th:value="${p.id}"
+            th:text="${p.nome}"
+            th:selected="${p.id == consulta?.paciente?.id}"></option>
+  </select><br/>
+
+  <!-- Envia medico.id: o Spring monta um Medico só com o id,
+       e o JPA grava a referência (FK) na tabela tb_consulta. -->
+  <label>Médico</label>
+  <select name="medico.id">
+    <option th:each="m : ${medicos}"
+            th:value="${m.id}"
+            th:text="${m.nome}"
+            th:selected="${m.id == consulta?.medico?.id}"></option>
+  </select><br/>
+
+  <button type="submit">Salvar</button>
+</form>
+<a th:href="@{/consulta/list}">Voltar para a lista</a>
+</body>
+</html>

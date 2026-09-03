@@ -1,0 +1,86 @@
+package br.edu.ifto.pwebII.controller;
+
+import br.edu.ifto.pwebII.model.entity.Paciente;
+import br.edu.ifto.pwebII.model.jdbc.repository.PacienteRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+/**
+ * Controller MVC para a entidade Paciente.
+ * Diferença de implementação em relação ao material de referência:
+ * em vez da anotação @Autowired em atributos, usamos ***injeção por construtor***,
+ * que é a forma recomendada e mais testável (o Spring injeta o repository).
+ */
+@Controller
+@RequestMapping("paciente")
+public class PacienteController {
+
+    private final PacienteRepository repository;
+
+    public PacienteController(PacienteRepository repository) {
+        this.repository = repository;
+    }
+
+    //carrega a página form.html do paciente (cadastro novo)
+    @GetMapping("form")
+    public ModelAndView form(Paciente paciente) {
+        return new ModelAndView("paciente/form");
+    }
+
+    //listagem dos pacientes
+    @GetMapping("/list")
+    public ModelAndView list(ModelMap model) {
+        model.addAttribute("pacientes", repository.pacientes());
+        return new ModelAndView("/paciente/list", model);
+    }
+
+    //cadastra um novo paciente
+    @Transactional
+    @PostMapping("save")
+    public ModelAndView save(Paciente paciente) {
+        repository.save(paciente);
+        return new ModelAndView("redirect:/paciente/list");
+    }
+
+    //carrega o formulário preenchido para edição
+    @GetMapping("/edit/{id}")
+    public ModelAndView edit(@PathVariable("id") Long id, ModelMap model) {
+        model.addAttribute("paciente", repository.paciente(id));
+        return new ModelAndView("/paciente/form", model);
+    }
+
+    //atualiza um paciente existente
+    @Transactional
+    @PostMapping("update")
+    public ModelAndView update(Paciente paciente) {
+        repository.update(paciente);
+        return new ModelAndView("redirect:/paciente/list");
+    }
+
+    //exclui um paciente
+    @Transactional
+    @GetMapping("/remove/{id}")
+    public ModelAndView remove(@PathVariable("id") Long id) {
+        repository.remove(id);
+        return new ModelAndView("redirect:/paciente/list");
+    }
+
+    /**
+     * Exibe todas as consultas de um paciente.
+     * Uso do método consultas() do domínio (que retorna uma String) conforme
+     * o diagrama de classes, além de uma lista de consultas para a tabela.
+     */
+    @GetMapping("/consultas/{id}")
+    public ModelAndView consultas(@PathVariable("id") Long id, ModelMap model) {
+        Paciente paciente = repository.paciente(id);
+        model.addAttribute("paciente", paciente);
+        model.addAttribute("consultas", repository.consultasDoPaciente(id));
+        return new ModelAndView("/paciente/consultas", model);
+    }
+}
