@@ -15,13 +15,7 @@ import java.util.List;
  * própria Consulta (que guarda a FK), por isso usamos @OneToMany(mappedBy).
  */
 @Entity
-public class Paciente implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nome;
-    private String telefone;
+public class Paciente extends PessoaFisica implements Serializable {
 
     // Lado fraco (não dono) do relacionamento 1 -> 0..*
     // O mappedBy indica que a FK está no atributo "paciente" de Consulta.
@@ -38,7 +32,7 @@ public class Paciente implements Serializable {
      * @return String com nome e telefone do paciente
      */
     public String dados() {
-        return "Paciente: " + nome + " | Telefone: " + telefone;
+        return "Paciente: " + getNome() + " | Telefone: " + getTelefone();
     }
 
     /**
@@ -48,7 +42,7 @@ public class Paciente implements Serializable {
      * @return String com as consultas do paciente
      */
     public String consultas() {
-        String texto = "Consultas de " + nome + ":\n";
+        String texto = "Consultas de " + getNome() + ":\n";
         if (consultas == null || consultas.isEmpty()) {
             texto += "Nenhuma consulta cadastrada.";
         } else {
@@ -57,30 +51,6 @@ public class Paciente implements Serializable {
             }
         }
         return texto;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
     }
 
     public List<Consulta> getConsultas() {
