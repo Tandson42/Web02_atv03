@@ -3,12 +3,11 @@
 --  quando o ddl-auto gera a estrutura das tabelas)
 
 -- Pacientes (o id é gerado pelo autoincremento do H2)
-insert into Paciente (nome, telefone) values ('Maria Silva', '(63) 99911-2233'); -- id 1
-insert into Paciente (nome, telefone) values ('João Souza', '(63) 99822-3344');  -- id 2
+--insert into Paciente (nome, telefone) values ('Maria Silva', '(63) 99911-2233'); -- id 1
+--insert into Paciente (nome, telefone) values ('João Souza', '(63) 99822-3344');  -- id 2
 
--- Médicos (o id é gerado pelo autoincremento do H2)
-insert into Medico (nome, crm) values ('Dr. Carlos Lima', 'CRM-12345'); -- id 1
-insert into Medico (nome, crm) values ('Dra. Ana Costa', 'CRM-54321');  -- id 2
+INSERT INTO pessoa (dtype, nome, crm) VALUES ('Medico', 'Dr. Carlos Lima', 'CRM-12345'); -- id 3
+INSERT INTO pessoaFisica (dtype, nome, crm) VALUES ('Medico','Dra. Ana Costa', 'CRM-54321');
 
 -- Consultas (id auto; FKs paciente_id/medico_id apontam para os ids acima)
 -- OBS: cada comando deve ficar em uma ÚNICA linha, pois o Hibernate lê o
