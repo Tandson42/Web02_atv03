@@ -15,12 +15,8 @@ import java.util.List;
  * usamos @OneToMany(mappedBy = "medico") aqui.
  */
 @Entity
-public class Medico implements Serializable {
+public class Medico extends PessoaFisica implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nome;
     private String crm;
 
     // Lado fraco (não dono) do relacionamento 0..* -> 1
@@ -36,7 +32,7 @@ public class Medico implements Serializable {
      * @return String com nome e CRM do médico
      */
     public String dados() {
-        return "Médico: " + nome + " | CRM: " + crm;
+        return "Médico: " + getNome() + " | CRM: " + crm;
     }
 
     /**
@@ -46,7 +42,7 @@ public class Medico implements Serializable {
      * @return String com as consultas do médico
      */
     public String consultas() {
-        String texto = "Consultas do Dr(a). " + nome + ":\n";
+        String texto = "Consultas do Dr(a). " + getNome() + ":\n";
         if (consultas == null || consultas.isEmpty()) {
             texto += "Nenhuma consulta cadastrada.";
         } else {
@@ -55,22 +51,6 @@ public class Medico implements Serializable {
             }
         }
         return texto;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getCrm() {

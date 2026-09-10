@@ -11,11 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-/**
- * Controller MVC para a entidade Medico.
- * Diferença de implementação em relação ao material de referência:
- * usamos ***injeção por construtor*** ao invés de @Autowired em atributos.
- */
 @Controller
 @RequestMapping("medico")
 public class MedicoController {
@@ -70,11 +65,7 @@ public class MedicoController {
         return new ModelAndView("redirect:/medico/list");
     }
 
-    /**
-     * Exibe todas as consultas realizadas por um médico.
-     * Uso do método consultas() do domínio (que retorna uma String) conforme
-     * o diagrama de classes, além de uma lista de consultas para a tabela.
-     */
+
     @GetMapping("/consultas/{id}")
     public ModelAndView consultas(@PathVariable("id") Long id, ModelMap model) {
         Medico medico = repository.medico(id);

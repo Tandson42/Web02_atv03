@@ -78,7 +78,10 @@ public class ConsultaController {
     //exclui uma consulta
     @Transactional
     @GetMapping("/remove/{id}")
-    public ModelAndView remove(@PathVariable("id") Long id) {
+    public ModelAndView remove(@PathVariable("id") Long id,  ModelMap model) {
+//        if (erro ao remover){
+//            model.addAttribute("erro_remover", "Você não tem privilégios para remover");
+//        }
         repository.remove(id);
         return new ModelAndView("redirect:/consulta/list");
     }

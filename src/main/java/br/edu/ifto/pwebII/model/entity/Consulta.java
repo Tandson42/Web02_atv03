@@ -46,13 +46,7 @@ public class Consulta implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Medico medico;
 
-    /**
-     * Retorna uma String com a representação textual da consulta.
-     * Diferença de implementação: além dos atributos próprios (data, valor,
-     * observação), exibimos também o paciente e o médico associados.
-     *
-     * @return String com os dados da consulta
-     */
+
     public String dados() {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return "Consulta em " + (data != null ? data.format(fmt) : "sem data")

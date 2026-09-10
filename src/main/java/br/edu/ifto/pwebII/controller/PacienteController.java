@@ -11,12 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-/**
- * Controller MVC para a entidade Paciente.
- * Diferença de implementação em relação ao material de referência:
- * em vez da anotação @Autowired em atributos, usamos ***injeção por construtor***,
- * que é a forma recomendada e mais testável (o Spring injeta o repository).
- */
 @Controller
 @RequestMapping("paciente")
 public class PacienteController {
@@ -71,11 +65,6 @@ public class PacienteController {
         return new ModelAndView("redirect:/paciente/list");
     }
 
-    /**
-     * Exibe todas as consultas de um paciente.
-     * Uso do método consultas() do domínio (que retorna uma String) conforme
-     * o diagrama de classes, além de uma lista de consultas para a tabela.
-     */
     @GetMapping("/consultas/{id}")
     public ModelAndView consultas(@PathVariable("id") Long id, ModelMap model) {
         Paciente paciente = repository.paciente(id);
