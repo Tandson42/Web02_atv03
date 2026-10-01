@@ -1,33 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Médico</title>
-</head>
-<body>
-<h3>Página FORM de Médico!</h3>
-<form th:action="${medico.id != null} ? @{/medico/update} : @{/medico/save}"
-      method="post">
-  <!-- sem o id, o JPA não sabe qual linha atualizar -->
-  <input type="hidden" name="id" th:value="${medico?.id}"/>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{:: head}, ~{:: main})}">
 
-  <label>Nome</label>
-  <input type="text" name="nome" th:value="${medico?.nome}"/><br/>
+    <head th:replace="~{fragments/head :: head(~{:: title})">
+        <title>Médico</title>
+    </head>
 
-  <label>CPF</label>
-  <input type="text" name="cpf" th:value="${medico?.cpf}"/><br/>
+    <main th:fragment="main">
+        <div class="container mt-4">
+            <h3>Página FORM de Médico!</h3>
+            <form th:action="${medico.id != null} ? @{/medico/update} : @{/medico/save}"
+                  method="post">
+                <!-- sem o id, o JPA não sabe qual linha atualizar -->
+                <input type="hidden" name="id" th:value="${medico?.id}"/>
 
-  <label>Email</label>
-  <input type="email" name="email" th:value="${medico?.email}"/><br/>
+                <div class="mb-3">
+                    <label class="form-label">Nome</label>
+                    <input type="text" class="form-control" name="nome" th:value="${medico?.nome}"/>
+                </div>
 
-  <label>Telefone</label>
-  <input type="text" name="telefone" th:value="${medico?.telefone}"/><br/>
+                <div class="mb-3">
+                    <label class="form-label">CPF</label>
+                    <input type="text" class="form-control" name="cpf" th:value="${medico?.cpf}"/>
+                </div>
 
-  <label>CRM</label>
-  <input type="text" name="crm" th:value="${medico?.crm}"/><br/>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" th:value="${medico?.email}"/>
+                </div>
 
-  <button type="submit">Salvar</button>
-</form>
-<a th:href="@{/medico/list}">Voltar para a lista</a>
-</body>
+                <div class="mb-3">
+                    <label class="form-label">Telefone</label>
+                    <input type="text" class="form-control" name="telefone" th:value="${medico?.telefone}"/>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">CRM</label>
+                    <input type="text" class="form-control" name="crm" th:value="${medico?.crm}"/>
+                </div>
+
+                <button type="submit" class="btn btn-info text-white">Salvar</button>
+            </form>
+            <a th:href="@{/medico/list}" class="btn btn-outline-secondary mt-2">Voltar para a lista</a>
+        </div>
+    </main>
 </html>
