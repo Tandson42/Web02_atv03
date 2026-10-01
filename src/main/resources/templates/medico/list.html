@@ -1,39 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Médicos</title>
-</head>
-<body>
-<!-- Link para abrir o formulário de cadastro de um novo médico -->
-<a th:href="@{/medico/form}">Novo Médico</a>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::head}, ~{::main})}">
 
-<table class="table" border="1">
-  <thead>
-  <tr>
-    <th>Id</th>
-    <th>Nome</th>
-    <th>CPF</th>
-    <th>Email</th>
-    <th>Telefone</th>
-    <th>CRM</th>
-    <th colspan="3">Ações</th>
-  </tr>
-  </thead>
-  <tr th:each="m : ${medicos}">
-    <td th:text="${m.id}"></td>
-    <td th:text="${m.nome}"></td>
-    <td th:text="${m.cpf}"></td>
-    <td th:text="${m.email}"></td>
-    <td th:text="${m.telefone}"></td>
-    <td th:text="${m.crm}"></td>
+    <head th:replace="~{fragments/head :: head(~{::title})}">
+        <title>Médicos</title>
+    </head>
 
-    <td> <a th:href="|/medico/edit/${m.id}|">Editar</a> </td>
-    <td> <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"
-           th:href="@{/medico/remove/{id}(id=${m.id})}">Excluir</a> </td>
-    <!-- Visualizar todas as consultas realizadas por um médico -->
-    <td> <a th:href="|/medico/consultas/${m.id}|">Consultas</a> </td>
-  </tr>
-</table>
-</body>
+    <main th:fragment="main">
+        <div class="container mt-4">
+            <!-- Link para abrir o formulário de cadastro de um novo médico -->
+            <a th:href="@{/medico/form}" class="btn btn-info text-white mb-3">Novo Médico</a>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                        <th>CRM</th>
+                        <th colspan="3">Ações</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="m : ${medicos}">
+                        <td th:text="${m.id}"></td>
+                        <td th:text="${m.nome}"></td>
+                        <td th:text="${m.cpf}"></td>
+                        <td th:text="${m.email}"></td>
+                        <td th:text="${m.telefone}"></td>
+                        <td th:text="${m.crm}"></td>
+
+                        <td> <a th:href="|/medico/edit/${m.id}|">Editar</a> </td>
+                        <td> <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"
+                               th:href="@{/medico/remove/{id}(id=${m.id})}">Excluir</a> </td>
+                        <!-- Visualizar todas as consultas realizadas por um médico -->
+                        <td> <a th:href="|/medico/consultas/${m.id}|">Consultas</a> </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </main>
 </html>
