@@ -1,24 +1,46 @@
 ﻿<!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>Menu</title>
-</head>
-<body>
-<h3>Menu</h3>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{:: head}, ~{:: main})}">
 
-<div>
-  <a th:href="@{/medico/list}">
-    <button type="button">Médicos</button>
-  </a><br/>
+    <head th:replace="~{fragments/head :: head(~{:: title})">
+        <title>Menu - Clínica Web</title>
+    </head>
 
-  <a th:href="@{/paciente/list}">
-    <button type="button">Pacientes</button>
-  </a><br/>
+    <main th:fragment="main">
+        <div class="container mt-4">
+            <h3>Menu</h3>
 
-  <a th:href="@{/consulta/list}">
-    <button type="button">Consultas</button>
-  </a><br/>
-</div>
-</body>
+            <div class="row g-3 mt-1">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Médicos</h5>
+                            <p class="card-text">Cadastro e listagem de médicos</p>
+                            <a th:href="@{/medico/list}" class="btn btn-info text-white">Acessar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Pacientes</h5>
+                            <p class="card-text">Cadastro e listagem de pacientes</p>
+                            <a th:href="@{/paciente/list}" class="btn btn-info text-white">Acessar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Consultas</h5>
+                            <p class="card-text">Agendamento e listagem de consultas</p>
+                            <a th:href="@{/consulta/list}" class="btn btn-info text-white">Acessar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 </html>
