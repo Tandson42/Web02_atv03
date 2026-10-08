@@ -2,6 +2,7 @@ package br.edu.ifto.pwebII.model.entity;
 
 import jakarta.persistence.*;
 
+import br.edu.ifto.pwebII.validation.Edicao;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
@@ -26,6 +27,7 @@ public class Consulta implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull(groups = Edicao.class, message = "O identificador deve ser informado para edição.")
     private Long id;
 
     @NotNull(message = "Informe a data e hora da consulta.")
